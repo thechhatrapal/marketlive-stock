@@ -1,0 +1,61 @@
+{
+  "name": "nifty-client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@polygon.io/client-js": "^7.3.2",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.2",
+    "bootstrap": "^5.3.2",
+    "concurrently": "^8.2.2",
+    "crypto": "^1.0.1",
+    "extra-fyers": "^2.0.3",
+    "finnhub": "^1.2.18",
+    "fyers-api-v3": "^1.0.2",
+    "https": "^1.0.0",
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.9.1",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
+    "react-multi-select-component": "^4.3.4",
+    "react-router-dom": "^6.20.1",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.8.0",
+    "react-slick": "^0.29.0",
+    "request": "^2.88.2",
+    "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.7.2",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "frontend": "react-scripts start",
+    "backend": "cd marketlive-stock && npm start",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
+  }
+}
