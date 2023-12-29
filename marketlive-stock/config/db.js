@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const ConnectDb = () => {
 //   mongoose.set("strictQuery", false);
-  const mongoDB = "mongodb://localhost:27017/mystock";
+  const mongoDB = process.env.DATABASE_URL;
 
   main().catch((err) => console.log(err));
   main().then(() => console.log("db is connected"));

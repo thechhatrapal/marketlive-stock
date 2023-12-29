@@ -14,7 +14,7 @@ const BlogForm = () => {
     formData.append('image', image);
 
 
-    axios.post('http://localhost:5000/api/addblog',formData)
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/addblog`,formData)
     .then(res => console.log(res))
     .catch(err => console.log(err))
     setTitle('');

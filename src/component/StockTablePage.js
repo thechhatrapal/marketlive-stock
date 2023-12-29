@@ -104,7 +104,7 @@ const StockTablePage = ({
   const fetchData = (value) => {
     let d = [];
     axios
-      .post("http://localhost:5000/allStockData", { symbol: value })
+      .post(`${process.env.REACT_APP_BACKEND_URL}/allStockData`, { symbol: value })
       .then((res) => {
           res?.data.filter((v) => {
           let symbol = v.symbol;
@@ -135,7 +135,7 @@ const StockTablePage = ({
     let type = commodityType === 'mcx'
     e.preventDefault()
     axios
-    .post("http://localhost:5000/allStockData", { symbol: type ? 'mcx': '' })
+    .post(`${process.env.REACT_APP_BACKEND_URL}/allStockData`, { symbol: type ? 'mcx': '' })
     .then((res) => {
       setData(res.data);
       setFilteredData(res.data)

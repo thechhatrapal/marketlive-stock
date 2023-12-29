@@ -10,15 +10,15 @@ const crypto = require("crypto");
 fyers.setAppId(process.env.FYRES_CLIENT_ID);
 fyers.setRedirectUrl(process.env.FYRES_REDIRECT_URL);
 
-router.get("/authgenerateurl", (req, res) => {
-    var generateAuthcodeURL = fyers.generateAuthCode();
-    res.send(generateAuthcodeURL);
-  });
-
   router.get("/getrefreshtoken", async (req, res) => {
+    let fyers = new FyersAPI.fyersModel();
+    fyers.setAppId(process.env.FYRES_CLIENT_ID);
+    fyers.setRedirectUrl(process.env.FYRES_REDIRECT_URL);
     let auth_code = await AuthCode.find({});
     const authcode = auth_code[0].authCode;
     const secretKey = process.env.SECRET_KEY;
+
+    console.log('authcode', authcode, secretKey)
     fyers
       .generate_access_token({
         secret_key: secretKey,
@@ -27,6 +27,7 @@ router.get("/authgenerateurl", (req, res) => {
         secret_id: process.env.SECRET_KEY,
       })
       .then(async(response) => {
+        console.log("response", response)
         try {
           await RefreshToken.deleteMany()
           const authCodeEntry = new RefreshToken({ refreshToken: response.refresh_token });
@@ -44,10 +45,13 @@ router.get("/authgenerateurl", (req, res) => {
   });
 
   router.get("/authorization", async (req, res) => {
+    let fyers = new FyersAPI.fyersModel();
+    fyers.setAppId(process.env.FYRES_CLIENT_ID);
+    fyers.setRedirectUrl(process.env.FYRES_REDIRECT_URL);
     let refresh_token = await RefreshToken.find({});
     const appId = process.env.FYRES_CLIENT_ID;
     const appSecret = process.env.SECRET_KEY;
-    const refreshToken = refresh_token[0].refreshToken;
+    const refreshToken = refresh_token[0]?.refreshToken;
     const hash = crypto.createHash("sha256");
     const appIdHash = hash.update(`${appId}${appSecret}`).digest("hex");
   

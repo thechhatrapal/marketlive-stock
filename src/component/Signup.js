@@ -13,7 +13,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const user = await axios.post('http://localhost:5000/auth/signup', {name, email, password})
+        const user = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/signup`, {name, email, password})
         if(user) {
           let users = JSON.stringify(user);
           localStorage.setItem("user", users);

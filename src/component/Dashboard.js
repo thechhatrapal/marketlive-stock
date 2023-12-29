@@ -24,17 +24,16 @@ function Dashboard() {
   const [selectedData, setSelectedData] = useState([]);
   const [outTime, setOutTime] = useState(false)
 
-  let ENDPOINT = "http://localhost:5000/";
 
-  var socket = io(ENDPOINT);
+  var socket = io(`${process.env.REACT_APP_BACKEND_URL}`);
   const intervalInMilliseconds = 24 * 60 * 60 * 1000;
 
 
   useEffect(() => {
     setLoading(true);
-    axios.get('http://localhost:5000/token/authorization').then(res => {
-      axios.post('http://localhost:5000/setfiresData', {token: res.data}).then(res => console.log(res))
-      axios.post("http://localhost:5000/allStockData", { symbol: "mcx", token: res.data })
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/token/authorization`).then(res => {
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/setfiresData`, {token: res.data}).then(res => console.log(res))
+      axios.post(`${process.env.REACT_APP_BACKEND_URL}/allStockData`, { symbol: "mcx", token: res.data })
       .then((res) => {
         setData(res.data);
         setFilteredData(res.data)

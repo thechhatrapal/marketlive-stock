@@ -11,7 +11,7 @@ const BlogListing = () => {
   const [blogs, setBlogs] = useState();
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/blogs")
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/blogs`)
       .then((res) => setBlogs(res.data.blogs))
       .catch((err) => console.log(err));
   }, []);

@@ -16,7 +16,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await axios.post("http://localhost:5000/auth/signin", {
+      const user = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/signin`, {
         email,
         password,
       });
@@ -66,7 +66,7 @@ function Login() {
                     type="password"
                     className="focus-ring focus-ring-light form-control form-input mb-3"
                     id="exampleInputPassword1"
-                    placeholder="Password0"
+                    placeholder="Password"
                   />
                 </div>
                 <p onClick={() => navigate('/adminsignin')}>sign in as <span className="font-bold">Admin</span></p>

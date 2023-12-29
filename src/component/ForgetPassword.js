@@ -15,7 +15,7 @@ function ForgetPassword() {
       e.preventDefault();
     if (isUser) {
       try {
-        const user = await axios.put("http://localhost:5000/auth/setNewPassword",
+        const user = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/auth/setNewPassword`,
           {
             email,
             password
@@ -29,7 +29,7 @@ function ForgetPassword() {
       }
     } else {
       try {
-        const user = await axios.post("http://localhost:5000/auth/verifyuser", {
+        const user = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/verifyuser`, {
           email,
         });
         if (user) {

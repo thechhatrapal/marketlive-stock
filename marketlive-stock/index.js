@@ -5,7 +5,6 @@ const ConnectDb = require("./config/db");
 const app = express();
 const FyersSocket = require("fyers-api-v3").fyersDataSocket;
 const FyersAPI = require("fyers-api-v3");
-const SymbolSchema = require("./Model/SymbolSchema");
 const blogRoutes = require("./routes/blog.routes");
 const userRoutes = require("./routes/user.routes");
 const path = require("path");
@@ -26,12 +25,9 @@ app.use(bodyParser.json());
 
 let fyersdata
 
-
-
 const fyers = new FyersAPI.fyersModel();
 fyers.setAppId(process.env.FYRES_CLIENT_ID);
 fyers.setRedirectUrl(process.env.FYRES_REDIRECT_URL);
-
 
 // db
 ConnectDb();
@@ -42,6 +38,15 @@ app.use("/auth", userRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/save", authcodeRoute);
 app.use('/token', tokenAuthorizationRoute)
+
+app.get("/authgenerateurl", (req, res) => {
+  let fyers = new FyersAPI.fyersModel();
+  fyers.setAppId(process.env.FYRES_CLIENT_ID);
+  fyers.setRedirectUrl(process.env.FYRES_REDIRECT_URL);
+  var generateAuthcodeURL = fyers.generateAuthCode();
+  res.send(generateAuthcodeURL);
+});
+
 app.post('/setfiresData', async (req,res) => {
   try {
     if (fyersdata && fyersdata.connect) {
@@ -63,9 +68,7 @@ app.post("/allStockData", async (req, res) => {
     if (!fyersdata || !fyersdata.connect) {
       throw new Error('FyersData not initialized or not connected.');
     }
-
-    let data = [];
-    
+    let data = [];    
     function onmsg(message) {
       if (message.symbol) {
         data.push(message);

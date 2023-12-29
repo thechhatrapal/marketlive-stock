@@ -11,7 +11,7 @@ function AuthGenerate() {
   const handleAuthGenerate = (e) => {
     e.preventDefault();
     axios
-      .get("http://localhost:5000/token/authgenerateurl")
+      .get(`${process.env.REACT_APP_BACKEND_URL}/authgenerateurl`)
       .then((res) => setAuthUrl(res.data))
       .catch((err) => console.log(err));
   };
@@ -19,12 +19,15 @@ function AuthGenerate() {
   const handleSaveAuthCode = (e) => {
     e.preventDefault()
     axios
-    .post("http://localhost:5000/save/auth-code", {authCode : auth})
+    .post(`${process.env.REACT_APP_BACKEND_URL}/save/auth-code`, {authCode : auth})
     .then((res) => {
-      axios.get('http://localhost:5000/token/getrefreshtoken').then(res => console.log(res))
-      alert('successfully saved new auth code')
-      Navigate('/admin')
-    })
+      let success =  axios.get(`${process.env.REACT_APP_BACKEND_URL}/token/getrefreshtoken`).then(res => console.log(res))
+      if(success) {
+        alert('successfully saved new auth code')
+        Navigate('/admin')
+
+      }
+          })
     .catch((err) => console.log(err));
   }
 

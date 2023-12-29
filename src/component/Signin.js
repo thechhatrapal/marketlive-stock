@@ -13,7 +13,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await axios.post("http://localhost:5000/auth/signin", {
+      const user = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/signin`, {
         email,
         password,
       });
